@@ -1,0 +1,15 @@
+before_deploy: rm pdf/agreement.aux pdf/agreement.log
+deploy:
+    access_key_id: $ACCESS_KEY
+    bucket: $BUCKET
+    edge: true
+    endpoint: $ENDPOINT
+    force_path_style: true
+    local_dir: pdf
+    provider: s3
+    secret_access_key: $SECRET_KEY
+install: sudo apt-get install -y texlive
+language: minimal
+script:
+    - mkdir pdf
+    - pdflatex -interaction=nonstopmode -output-directory=pdf agreement.tex
